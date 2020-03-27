@@ -9,7 +9,7 @@ export default function Projects() {
 
   useEffect(() => {
     Axios
-      .get("https://generic-node-api.herokuapp.com/api/projects")
+      .get("localhost:5000/api/jokes")
       .then(response => {
         console.log(response)
         setContent(response.data.map(project => project)
@@ -20,25 +20,20 @@ export default function Projects() {
       })
   }, [contentUpdate])
 
-  const toggleProjectCompleted = (state, id) => {
-    Axios
-      .put(`https://generic-node-api.herokuapp.com/api/projects/${id}`, { completed: !state })
-      .then(res => {
-        console.log(res)
-        setContentUpdate(res)
-
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
-
   return (
-    <>
-      <p> You have the following projects</p>
-      {content.map(project => (
-        <Project key={project.id} project={project} toggleProjectCompleted={toggleProjectCompleted} toggleActionCompleted={toggleActionCompleted} />
-      ))}
-    </>
+    <div >
+      <h1>
+        "Worlds best Djokes"
+      </h1>
+      <div>
+        {content.map(action => {
+          return (
+            <div key={action.id}>
+              <h4>{action.joke}</h4>
+            </div>
+          )
+        })}
+      </div>
+    </div>
   )
 }
